@@ -6,7 +6,7 @@ const MIN_CELL_SIZE = 20
 const MAX_CELL_SIZE = 40
 
 const BOARD_COLOR = '#0f0f0f'
-const GRID_COLOR = '#1f1f1f'
+const GRID_COLOR = '#444444'
 
 interface BoardProps {
   cells: string[][]
