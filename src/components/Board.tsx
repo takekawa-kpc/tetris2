@@ -1,8 +1,6 @@
-import React from 'react'
-
 const BOARD_WIDTH = 10
 const BOARD_HEIGHT = 20
-const CELL_SIZE = 30
+const MIN_CELL_SIZE = 20
 
 const BOARD_COLOR = '#1a1a1a'
 const GRID_COLOR = '#2a2a2a'
@@ -12,13 +10,17 @@ interface BoardProps {
 }
 
 export default function Board({ cells }: BoardProps) {
+  // レスポンシブなセルサイズ計算（最小20px）
+  const cellSize = Math.max(MIN_CELL_SIZE, Math.floor((window.innerWidth - 40) / BOARD_WIDTH))
+
   return (
-    <div className="relative">
+    <div className="relative" style={{ width: BOARD_WIDTH * cellSize, height: BOARD_HEIGHT * cellSize }}>
       <div
+        data-testid="board"
         className="border-2 border-gray-700 rounded-lg overflow-hidden"
         style={{
-          width: BOARD_WIDTH * CELL_SIZE,
-          height: BOARD_HEIGHT * CELL_SIZE,
+          width: BOARD_WIDTH * cellSize,
+          height: BOARD_HEIGHT * cellSize,
           backgroundColor: BOARD_COLOR,
         }}
       >
@@ -26,21 +28,37 @@ export default function Board({ cells }: BoardProps) {
           className="grid"
           style={{
             display: 'grid',
-            gridTemplateColumns: `repeat(${BOARD_WIDTH}, ${CELL_SIZE}px)`,
-            gridTemplateRows: `repeat(${BOARD_HEIGHT}, ${CELL_SIZE}px)`,
+            gridTemplateColumns: `repeat(${BOARD_WIDTH}, ${cellSize}px)`,
+            gridTemplateRows: `repeat(${BOARD_HEIGHT}, ${cellSize}px)`,
           }}
         >
-          {cells.flat().map((color, index) => (
-            <div
-              key={index}
-              className="border border-gray-800"
-              style={{
-                width: CELL_SIZE,
-                height: CELL_SIZE,
-                backgroundColor: color || BOARD_COLOR,
-              }}
-            />
-          ))}
+          {cells.flat().map((color, index) => {
+            const isEmpty = !color || color === ''
+
+            return (
+              <div
+                key={index}
+                className="border"
+                style={{
+                  width: cellSize,
+                  height: cellSize,
+                  backgroundColor: isEmpty ? BOARD_COLOR : color,
+                  borderColor: GRID_COLOR,
+                  boxSizing: 'border-box',
+                }}
+              >
+                {!isEmpty && (
+                  <div
+                    className="w-full h-full"
+                    style={{
+                      backgroundColor: color,
+                      boxShadow: 'inset 2px 2px 2px rgba(255,255,255,0.3), inset -2px -2px 2px rgba(0,0,0,0.3)',
+                    }}
+                  />
+                )}
+              </div>
+            )
+          })}
         </div>
       </div>
     </div>
