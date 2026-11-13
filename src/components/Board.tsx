@@ -5,8 +5,8 @@ const BOARD_HEIGHT = 20
 const MIN_CELL_SIZE = 20
 const DEFAULT_WIDTH = 800
 
-const BOARD_COLOR = '#1a1a1a'
-const GRID_COLOR = '#2a2a2a'
+const BOARD_COLOR = '#111111'
+const GRID_COLOR = '#333333'
 
 interface BoardProps {
   cells: string[][]
