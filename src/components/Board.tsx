@@ -3,7 +3,7 @@ import { useState } from 'react'
 const BOARD_WIDTH = 10
 const BOARD_HEIGHT = 20
 const MIN_CELL_SIZE = 20
-const MAX_CELL_SIZE = 40
+const MAX_CELL_SIZE = 30
 
 const BOARD_COLOR = '#1a1a1a'
 const GRID_COLOR = '#333333'
@@ -13,10 +13,13 @@ interface BoardProps {
 }
 
 export default function Board({ cells }: BoardProps) {
-  // レスポンシブなセルサイズ計算（最小20px、最大40px）
+  // レスポンシブなセルサイズ計算（最小20px、最大30px）
   const [cellSize] = useState(() => {
     const initialWidth = typeof window !== 'undefined' ? window.innerWidth : 800
-    const computed = Math.floor(initialWidth / BOARD_WIDTH)
+    const initialHeight = typeof window !== 'undefined' ? window.innerHeight : 600
+    const computedWidth = Math.floor(initialWidth / BOARD_WIDTH)
+    const computedHeight = Math.floor((initialHeight - 40) / BOARD_HEIGHT)
+    const computed = Math.min(computedWidth, computedHeight)
     return Math.max(MIN_CELL_SIZE, Math.min(MAX_CELL_SIZE, computed))
   })
 
