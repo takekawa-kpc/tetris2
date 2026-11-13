@@ -9,7 +9,7 @@ export default function App() {
   const board = createEmptyBoard()
 
   return (
-    <div className="min-h-screen bg-[#0f0f0f] flex items-center justify-center">
+    <div className="h-screen bg-[#0f0f0f] flex items-center justify-center">
       <Board cells={board} />
     </div>
   )
