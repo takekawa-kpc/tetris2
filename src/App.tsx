@@ -2,7 +2,7 @@ import Board from './components/Board'
 
 // 空の盤面を生成（20行 × 10列）
 function createEmptyBoard(): string[][] {
-  return Array.from({ length: 20 }, () => Array(10).fill(''))
+  return Array.from({ length: 20 }, () => Array(10).fill('red'))
 }
 
 export default function App() {
